@@ -41,7 +41,7 @@ endif
 CSTD=c89
 CFLAGS := $(INC_FLAGS) -MMD -MP $(DEBUGFLAGS) $(WARNFLAGS) -std=$(CSTD)
 
-$(BUILD_DIR)/$(TARGET): $(OBJS)
+$(BUILD_DIR)/$(STATIC_TARGET): $(OBJS)
 	$(QUIET_AR)$(AR) rcs $@ $(OBJS)
 
 $(BUILD_DIR)/%.c.o: %.c
