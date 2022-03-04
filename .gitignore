@@ -1,0 +1,10 @@
+build
+bin
+dist
+.vscode
+*.log
+*.a
+*.o
+*.exe
+*.dll
+*.dylib
