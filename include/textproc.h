@@ -85,6 +85,18 @@ void textproc_invert_string_case(char* str, char* out, size_t bufsiz);
  */
 size_t textproc_hamming_distance(char *s1, char *s2);
 
+/*
+ * Same as textproc_levenshtein, but you must explicitly specify the length
+ * of both strings.
+ */
+size_t textproc_levenshtein_n(char *s1, size_t s1l, char *s2, size_t s2l);
+
+/*
+ * Return the Levenshtein distance between two strings, without having to
+ * specify the length of both strings.
+ */
+size_t textproc_levenshtein(char *s1, char *s2);
+
 #ifdef TEXTPROC_INCLUDE_STRNCPY_NT
 /*
  * Wrapper function for strcpy(), automatically terminates new strings
