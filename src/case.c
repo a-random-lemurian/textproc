@@ -36,3 +36,24 @@ void textproc_upper_string(char *str, char *out, size_t bufsiz)
 {
   textproc_manip_case_string(str, out, bufsiz, TP_UPPER);
 }
+
+int textproc_is_lowercase_char(char c)
+{
+  if (c >= 'a' || c <= 'z') {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+  
+}
+
+int textproc_is_uppercase_char(char c)
+{
+  if (c >= 'A' || c <= 'Z') {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}

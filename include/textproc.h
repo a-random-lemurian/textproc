@@ -58,4 +58,15 @@ void textproc_manip_case_string(char *str, char *out, size_t bufsiz, int mode);
  * of a single character.
  */
 char textproc_manip_case_letter(char c, int mode);
+
+
+/*
+ * Return 1 if c is lowercase, otherwise return 0.
+ */
+int textproc_is_lowercase_char(char c);
+
+/*
+ * Return 1 if c is uppercase, otherwise return 0.
+ */
+int textproc_is_uppercase_char(char c);
 #endif /* TEXTPROC_H */
