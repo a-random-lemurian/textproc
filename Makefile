@@ -79,14 +79,8 @@ TEST_SRC := $(shell find $(TEST_DIR) -name 'test_*.c')
 TEST_EXE = $(addprefix bin/, $(notdir $(basename $(TEST_SRC))))
 
 bin/test_%: test/test_%.c
-	@echo ' '
-
 	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) \
 	$(BUILD_DIR)/$(STATIC_TARGET)
-
-	@echo '-------------------------------------------------------------------'
-	@$@
-	@echo '-------------------------------------------------------------------'
 
 .PHONY: test
 test: $(TEST_EXE)
