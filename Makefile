@@ -39,8 +39,15 @@ QUIET_AR   = @echo '$(DATETIME) AR    $(@F)';
 QUIET_LINK = @echo '$(DATETIME) LINK  $(@F)';
 endif
 
+
+# User can add custom definitions, and flags here.
+USER_DEFS :=
+
+
+DEFINES := TEXTPROC_INCLUDE_STRNCPY_NT $(USER_DEFS)
 CSTD=c89
-CFLAGS := $(INC_FLAGS) -MMD -MP $(DEBUGFLAGS) $(WARNFLAGS) -std=$(CSTD)
+CFLAGS := $(INC_FLAGS) -MMD -MP $(DEBUGFLAGS) $(WARNFLAGS) -std=$(CSTD) \
+          $(addprefix -D,$(DEFINES))
 
 $(BUILD_DIR)/$(STATIC_TARGET): $(OBJS)
 	$(QUIET_AR)$(AR) rcs $@ $(OBJS)
