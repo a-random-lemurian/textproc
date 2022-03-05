@@ -80,6 +80,10 @@ char textproc_invert_char_case(char c);
  */
 void textproc_invert_string_case(char* str, char* out, size_t bufsiz);
 
+/*
+ * Calculate the Hamming distance of two strings, of the same length.
+ */
+size_t textproc_hamming_distance(char *s1, char *s2);
 
 #ifdef TEXTPROC_INCLUDE_STRNCPY_NT
 /*
