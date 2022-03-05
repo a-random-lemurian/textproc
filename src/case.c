@@ -37,6 +37,12 @@ void textproc_upper_string(char *str, char *out, size_t bufsiz)
   textproc_manip_case_string(str, out, bufsiz, TP_UPPER);
 }
 
+/*
+ * Replacements for standard library function isupper() and islower(), just
+ * in case.
+ */
+
+
 int textproc_is_lowercase_char(char c)
 {
   if (c >= 'a' && c <= 'z') {
