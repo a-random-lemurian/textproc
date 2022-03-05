@@ -3,12 +3,12 @@
 char textproc_manip_case_letter(char c, int mode)
 {
   if (mode == TP_UPPER) {
-    if (c >= 'a' || c <= 'z') {
+    if (c >= 'a' && c <= 'z') {
       c -= 32;
     }
   }
   else if (mode == TP_LOWER) {
-    if (c >= 'A' || c <= 'z') {
+    if (c >= 'A' && c <= 'z') {
       c += 32;
     }
   }
@@ -39,7 +39,7 @@ void textproc_upper_string(char *str, char *out, size_t bufsiz)
 
 int textproc_is_lowercase_char(char c)
 {
-  if (c >= 'a' || c <= 'z') {
+  if (c >= 'a' && c <= 'z') {
     return 1;
   }
   else {
@@ -50,7 +50,7 @@ int textproc_is_lowercase_char(char c)
 
 int textproc_is_uppercase_char(char c)
 {
-  if (c >= 'A' || c <= 'Z') {
+  if (c >= 'A' && c <= 'Z') {
     return 1;
   }
   else {
