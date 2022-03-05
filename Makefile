@@ -10,7 +10,7 @@ SRCS := $(shell find $(SRC_DIRS) -name '*.c')
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 
-INC_DIRS := $(shell find $(SRC_DIRS) -type d) ./include
+INC_DIRS := $(shell find $(SRC_DIRS) -type d) ./include ./modules
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
 AR=ar
@@ -66,3 +66,27 @@ static: $(BUILD_DIR)/$(STATIC_TARGET)
 
 .PHONY: all
 all: shared static
+
+
+
+#-< tests >- -----------------------------------------------------------------#
+
+UNITYTEST_DIR := ./modules/unitytest
+UNITYTEST_SRC := $(shell find $(UNITYTEST_DIR) -name '*.c')
+
+TEST_DIR := ./test
+TEST_SRC := $(shell find $(TEST_DIR) -name 'test_*.c')
+TEST_EXE = $(addprefix bin/, $(notdir $(basename $(TEST_SRC))))
+
+bin/test_%: test/test_%.c
+	@echo ' '
+
+	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) \
+	$(BUILD_DIR)/$(STATIC_TARGET)
+
+	@echo '-------------------------------------------------------------------'
+	@$@
+	@echo '-------------------------------------------------------------------'
+
+.PHONY: test
+test: $(TEST_EXE)
