@@ -34,19 +34,13 @@ void test_high_bufsiz()
   TEST_ASSERT_EQUAL_STRING_MESSAGE("gnirts", out, "todo known breakage");
 }
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> b070e73 (feat(test): add dedicated tests for bufsiz)
 int main(int argc, char** argv)
 {
   UNITY_BEGIN();
   RUN_TEST(test_low_bufsiz);
   RUN_TEST(test_high_bufsiz);
-<<<<<<< HEAD
-=======
   RUN_TEST(test_correct_bufsiz);
->>>>>>> b070e73 (feat(test): add dedicated tests for bufsiz)
   return UNITY_END();
 }
