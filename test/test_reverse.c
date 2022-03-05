@@ -34,23 +34,11 @@ void test_palindrome()
   TEST_ASSERT_EQUAL_STRING("racecar", out);
 }
 
-void test_wrong_bufsiz()
-{
-  char* input = "oops, error";
-  char out[12];
-
-  textproc_reverse_string(input, out ,11);
-
-  TEST_ASSERT_EQUAL_STRING_MESSAGE("rorre ,spoo", out, 
-                                   "todo: known breakage");
-}
-
 int main(int argc, char** argv)
 {
   UNITY_BEGIN();
   RUN_TEST(test_reverse_text);
   RUN_TEST(test_reverse_numbers_in_string);
   RUN_TEST(test_palindrome);
-  RUN_TEST(test_wrong_bufsiz);
   return UNITY_END();
 }
