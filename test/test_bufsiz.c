@@ -34,8 +34,6 @@ void test_high_bufsiz()
   TEST_ASSERT_EQUAL_STRING_MESSAGE("gnirts", out, "todo known breakage");
 }
 
-
-
 int main(int argc, char** argv)
 {
   UNITY_BEGIN();
