@@ -79,4 +79,14 @@ char textproc_invert_char_case(char c);
  * Invert the case of a string. (lowerUPPER -> LOWERupper)
  */
 void textproc_invert_string_case(char* str, char* out, size_t bufsiz);
+
+
+#ifdef TEXTPROC_INCLUDE_STRNCPY_NT
+/*
+ * Wrapper function for strcpy(), automatically terminates new strings
+ * with a NULL character.
+ */
+char* tp_strncpyn(char* dest, const char* src, size_t n);
+#endif
+
 #endif /* TEXTPROC_H */
