@@ -71,31 +71,22 @@ all: shared static
 
 #-< tests >- -----------------------------------------------------------------#
 
-UNITY_TEST_LIB := $(BUILD_DIR)/libunitytest.a
-UNITY_TEST_OBJ := build/unity.o
-UNITY_TEST_SRC := modules/unitytest/unity.c
+UNITYTEST_DIR := ./modules/unitytest
+UNITYTEST_SRC := $(shell find $(UNITYTEST_DIR) -name '*.c')
 
-$(UNITY_TEST_OBJ): $(UNITY_TEST_SRC)
-	$(QUIET_CC)$(CC) -c $< -o $@
-
-$(UNITY_TEST_LIB): $(UNITY_TEST_OBJ)
-	$(QUIET_AR)$(AR) rcs $@ $<
-
-
-TEST_DIR := ./test/
+TEST_DIR := ./test
 TEST_SRC := $(shell find $(TEST_DIR) -name 'test_*.c')
-TEST_EXECS := $(BIN_DIR)/test/$(notdir $(basename $(TEST_SRC)))
+TEST_EXE = $(addprefix bin/, $(notdir $(basename $(TEST_SRC))))
+
+bin/test_%: test/test_%.c
+	@echo ' '
+
+	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) \
+	$(BUILD_DIR)/$(STATIC_TARGET)
+
+	@echo '-------------------------------------------------------------------'
+	@$@
+	@echo '-------------------------------------------------------------------'
 
 .PHONY: test
-test: $(TEST_EXECS)
-
-.PHONY: unity
-unity: $(UNITY_TEST_LIB)
-
-$(TEST_EXECS): $(TEST_SRC) unity $(BUILD_DIR)/$(STATIC_TARGET)
-	$(QUIET_CC)$(CC) $< -o $@ $(DEBUGFLAGS) -std=$(CSTD) $(INC_FLAGS) \
-	-L./build $(UNITY_TEST_LIB) $(BUILD_DIR)/$(STATIC_TARGET)
-
-.PHONY: run-tests
-run-tests: test
-	@$(TEST_EXECS)
+test: $(TEST_EXE)
