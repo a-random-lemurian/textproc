@@ -52,10 +52,6 @@ $(BUILD_DIR)/%.c.o: %.c
 	@mkdir -p $(dir $@)
 	$(QUIET_CC)$(CC) $(CFLAGS) -c $< -o $@
 
-.PHONY: clean
-clean:
-	rm -r $(BUILD_DIR)
-
 -include $(DEPS)
 
 .PHONY: shared
@@ -84,3 +80,12 @@ bin/test_%: test/test_%.c
 
 .PHONY: test
 test: $(TEST_EXE)
+
+
+
+
+#-< clean >- -----------------------------------------------------------------#
+
+.PHONY: clean
+clean:
+	rm -rfv $(OBJS) $(DEPS) $(BUILD_DIR)/lib$(LIBNAME).*
