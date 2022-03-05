@@ -69,4 +69,14 @@ int textproc_is_lowercase_char(char c);
  * Return 1 if c is uppercase, otherwise return 0.
  */
 int textproc_is_uppercase_char(char c);
+
+/*
+ * Invert the case of a character. (a -> A)
+ */
+char textproc_invert_char_case(char c);
+
+/*
+ * Invert the case of a string. (lowerUPPER -> LOWERupper)
+ */
+void textproc_invert_string_case(char* str, char* out, size_t bufsiz);
 #endif /* TEXTPROC_H */

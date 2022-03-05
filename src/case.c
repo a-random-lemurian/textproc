@@ -63,3 +63,24 @@ int textproc_is_uppercase_char(char c)
     return 0;
   }
 }
+
+
+char textproc_invert_char_case(char c)
+{
+  if (textproc_is_lowercase_char(c)) {
+    c -= 32;
+  }
+  else if (textproc_is_uppercase_char(c)) {
+    c += 32;
+  }
+
+  return c;
+}
+
+void textproc_invert_string_case(char* str, char* out, size_t bufsiz)
+{
+  size_t i;
+  for (i = 0; i < bufsiz; i++) {
+    out[i] = textproc_invert_char_case(str[i]);
+  }
+}
