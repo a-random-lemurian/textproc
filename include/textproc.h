@@ -51,4 +51,11 @@ void textproc_lower_string(char *str, char *out, size_t bufsiz);
  */
 void textproc_manip_case_string(char *str, char *out, size_t bufsiz, int mode);
 
+/*
+ * Manipulate the case of a char. The mode parameter has the same options as
+ * textproc_manip_case_string's mode parameter. textproc_manip_case_string
+ * acts as a wrapper for this function, operating on an entire char* instead
+ * of a single character.
+ */
+char textproc_manip_case_letter(char c, int mode);
 #endif /* TEXTPROC_H */
