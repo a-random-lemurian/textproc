@@ -39,8 +39,15 @@ QUIET_AR   = @echo '$(DATETIME) AR    $(@F)';
 QUIET_LINK = @echo '$(DATETIME) LINK  $(@F)';
 endif
 
+
+# User can add custom definitions, and flags here.
+USER_DEFS :=
+
+
+DEFINES := TEXTPROC_INCLUDE_STRNCPY_NT $(USER_DEFS)
 CSTD=c89
-CFLAGS := $(INC_FLAGS) -MMD -MP $(DEBUGFLAGS) $(WARNFLAGS) -std=$(CSTD)
+CFLAGS := $(INC_FLAGS) -MMD -MP $(DEBUGFLAGS) $(WARNFLAGS) -std=$(CSTD) \
+          $(addprefix -D,$(DEFINES))
 
 $(BUILD_DIR)/$(STATIC_TARGET): $(OBJS)
 	$(QUIET_AR)$(AR) rcs $@ $(OBJS)
@@ -67,6 +74,11 @@ all: shared static
 
 #-< tests >- -----------------------------------------------------------------#
 
+UNITYTEST_DEFS :=
+ifndef UNITY_NO_COLOR
+UNITYTEST_DEFS += -DUNITY_OUTPUT_COLOR
+endif
+
 UNITYTEST_DIR := ./modules/unitytest
 UNITYTEST_SRC := $(shell find $(UNITYTEST_DIR) -name '*.c')
 
@@ -75,8 +87,7 @@ TEST_SRC := $(shell find $(TEST_DIR) -name 'test_*.c')
 TEST_EXE = $(addprefix bin/, $(notdir $(basename $(TEST_SRC))))
 
 bin/test_%: test/test_%.c
-	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) \
-	$(BUILD_DIR)/$(STATIC_TARGET)
+	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) $(BUILD_DIR)/$(STATIC_TARGET) $(UNITYTEST_DEFS)
 
 .PHONY: test
 test: $(TEST_EXE)
