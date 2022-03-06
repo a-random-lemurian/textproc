@@ -55,8 +55,16 @@ size_t textproc_chartbl_translate_n(char *str, char *out, size_t out_siz,
   }
 
   for (i = 0; i < bufsiz; i++) {
+    size_t needed_siz = textproc_chartbl_translate_char(
+        str[i], sizeof(chartbl_lookup_row) / sizeof(clr), NULL, 0, clr);
+    char *translated_char = malloc(needed_siz);
+    textproc_chartbl_translate_char(str[i],
+                                    sizeof(chartbl_lookup_row) / sizeof(clr),
+                                    translated_char, needed_siz, clr);
 
-    strcat(out, " ");
+    strcat(out, translated_char);
+
+    free(translated_char);
   }
 
   return 0;
