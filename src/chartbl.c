@@ -26,7 +26,7 @@ size_t __textproc_longest_chartbl_value_len_n(const chartbl_lookup_row *clr,
   return siz;
 }
 
-int textproc_chartbl_translate(char *str, char *out, size_t out_siz,
+size_t textproc_chartbl_translate(char *str, char *out, size_t out_siz,
                                        const chartbl_lookup_row *clr)
 {
   return textproc_chartbl_translate_n(str, out, out_siz, strlen(str), clr);
