@@ -88,7 +88,7 @@ TEST_SRC := $(shell find $(TEST_DIR) -name 'test_*.c')
 TEST_EXE = $(addprefix bin/, $(notdir $(basename $(TEST_SRC))))
 
 bin/test_%: test/test_%.c
-	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) $(STATIC_TARGET) $(UNITYTEST_DEFS)
+	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) $(STATIC_TARGET) $(UNITYTEST_DEFS) -g3
 
 .PHONY: test
 test: $(TEST_EXE)
