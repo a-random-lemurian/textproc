@@ -184,8 +184,11 @@ typedef struct chartbl_lookup_row_t {
   char* value; /* Value (e.g Alfa) */
 } chartbl_lookup_row;
 
-/*
- *
+/**
+ * Translate all characters that can be translated in str based on a lookup
+ * table supplied via the `clr` argument, and write the result to out. If
+ * out_siz is 0, this function returns the size of the buffer required to
+ * accomodate the translated version.
  */
 int textproc_chartbl_translate(
   char* str,
@@ -194,8 +197,9 @@ int textproc_chartbl_translate(
   const chartbl_lookup_row* clr
 );
 
-/*
- *
+/**
+ * Same as textproc_chartbl_translate_n, but with an additional bufsiz
+ * parameter, specifying the size of str.
  */
 size_t textproc_chartbl_translate_n(
   char* str,
@@ -205,8 +209,17 @@ size_t textproc_chartbl_translate_n(
   const chartbl_lookup_row* clr
 );
 
-/*
+/**
+ * Translate a single character, and write the translated version to out. If
+ * out_siz is 0, this function returns the size of the buffer required to
+ * accomodate the translated version
+ * 
+ * Examples:
+ * Assuming a table of a -> Alfa, b -> Bravo, and c -> Charlie, and parameters
+ * marked ? are insignificant:
  *
+ * 'a', ?, (valid), 0 -> 5
+ * 'a', ?, (valid), 5 -> 0 ('Alfa' is written to the `(valid)` char*).
  */
 int textproc_chartbl_translate_char(
   char c,
@@ -218,17 +231,17 @@ int textproc_chartbl_translate_char(
 
 /**** Ciphers ****/
 
-/*
- * Return a string encoded using the NATO phonetic alphabet.
+/**
+ * Write a version of str encoded using the NATO phonetic alphabet to out.
  *
  * Example: ab -> Alfa Bravo.
  */
 int textproc_nato_translate(char* str, char* out, size_t outsiz);
 
-/*
- * Return a string encoded using the NATO phonetic alphabet. This functio
- * has an additional bufsiz parameter, for explicitly specifying the size
- * of str.
+/**
+ * Write a version of str encoded using the NATO phonetic alphabet to out.
+ * This function has an additional bufsiz parameter, for explicitly
+ * specifying the size of str.
  */
 int  textproc_nato_translate_n(char* str, char* out,
                                   size_t outsiz, size_t bufsiz);
