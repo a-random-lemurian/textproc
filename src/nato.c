@@ -40,8 +40,19 @@ int textproc_nato_translate(char* str, char* out, size_t outsiz)
 int textproc_nato_translate_n(char* str, char* out, size_t outsiz, size_t bufsiz)
 {
   char upper_str[bufsiz];
+  int rc;
 
   textproc_upper_string(str, upper_str, bufsiz);
 
-  return textproc_chartbl_translate((char*)upper_str, out, outsiz, nato_alphabet);
+  rc = textproc_chartbl_translate((char*)upper_str, out,
+                                  outsiz, nato_alphabet);
+
+  /*
+   * The output value has a leading space,
+   * so we remove it by replacing it with
+   * the null terminator.
+   */
+  out[strlen(out) - 1] = '\0';
+
+  return rc;
 }
