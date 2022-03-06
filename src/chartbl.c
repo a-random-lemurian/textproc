@@ -38,6 +38,12 @@ size_t textproc_chartbl_translate_n(char *str, char *out, size_t out_siz,
 {
   size_t i;
 
+  /*
+   * When out_siz is 0, we return the size of the
+   * buffer needed to store the translated string,
+   * so the calling program can allocate a string
+   * that textproc will fill.
+   */
   if (out_siz == 0) {
 
     size_t needed_size = 0;
@@ -78,6 +84,11 @@ int textproc_chartbl_translate_char(char c, size_t clr_siz,
 
   for (i = 0; i < clr_siz; i++) {
     if (c == clr[i].key) {
+      /*
+       * As always, out_siz of 0 is interpreted
+       * as a request for the size of the array
+       * required to store the translated string.
+       */
       if (out_siz == 0) {
         return strlen(clr[i].value);
       }
