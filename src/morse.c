@@ -50,7 +50,7 @@ const static chartbl_lookup_row morse_code[] = {
 
 int textproc_morse_encode(char* str, char* out, size_t outsiz)
 {
-  return textproc_nato_translate_n(str, out, outsiz, strlen(str));
+  return textproc_morse_encode_n(str, out, outsiz, strlen(str));
 }
 
 int textproc_morse_encode_n(char* str, char* out, size_t outsiz, size_t bufsiz)
