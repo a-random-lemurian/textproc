@@ -23,7 +23,7 @@ size_t textproc_letterset_count_n(char *str, char *trgt_chars, size_t str_l)
 {
   size_t i;
   size_t j;
-  size_t found_chars;
+  size_t found_chars = 0;
 
   /* [t]rgt_[c]hars_[l]ength */
   size_t tc_l = strlen(trgt_chars);
