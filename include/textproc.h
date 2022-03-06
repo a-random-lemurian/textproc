@@ -165,6 +165,57 @@ size_t textproc_letterset_count(char *str, char *trgt_chars);
  */
 size_t textproc_letterset_count_n(char *str, char *trgt_chars, size_t str_l);
 
+
+/*****************************************************************************/
+/** CHARACTER TABLE TRANSLATION FUNCTIONS ************************************/
+/*
+ * The purpose of these functions is to establish a lookup table to convert
+ * characters (i.e the string AB becomes Alfa Bravo when sent through a NATO
+ * character table translation function.)
+ * 
+ * Please use chartbl instead of chartable to prevent misleading-sounding
+ * names (chartable may be interpreted as the English word chartable, as in
+ * something that can be charted). tbl is clearly an abbreviation for table
+ * and will eliminate ambiguity.
+ */
+
+typedef struct chartbl_lookup_row_t {
+  char key;    /* Key (e.g A)      */
+  char* value; /* Value (e.g Alfa) */
+} chartbl_lookup_row;
+
+/*
+ *
+ */
+int textproc_chartbl_translate(
+  char* str,
+  char* out,
+  size_t out_siz,
+  const chartbl_lookup_row* clr
+);
+
+/*
+ *
+ */
+size_t textproc_chartbl_translate_n(
+  char* str,
+  char* out,
+  size_t bufsiz,
+  size_t out_siz,
+  const chartbl_lookup_row* clr
+);
+
+/*
+ *
+ */
+int textproc_chartbl_translate_char(
+  char c,
+  size_t clr_siz,
+  char* out,
+  size_t out_siz,
+  const chartbl_lookup_row* clr
+);
+
 #ifdef TEXTPROC_INCLUDE_STRNCPY_NT
 /*
  * Wrapper function for strcpy(), automatically terminates new strings
