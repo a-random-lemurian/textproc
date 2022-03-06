@@ -1,10 +1,11 @@
 LIBNAME=textproc
-STATIC_TARGET := lib$(LIBNAME).a
-SHARED_TARGET := lib$(LIBNAME).so
-
 BUILD_DIR := ./build
 SRC_DIRS := ./src
 BIN_DIR := ./bin
+
+STATIC_TARGET := $(BUILD_DIR)/lib$(LIBNAME).a
+SHARED_TARGET := $(BUILD_DIR)/lib$(LIBNAME).so
+
 
 SRCS := $(shell find $(SRC_DIRS) -name '*.c')
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
@@ -49,10 +50,10 @@ CSTD=c89
 CFLAGS := $(INC_FLAGS) -MMD -MP $(DEBUGFLAGS) $(WARNFLAGS) -std=$(CSTD) \
           $(addprefix -D,$(DEFINES))
 
-$(BUILD_DIR)/$(STATIC_TARGET): $(OBJS)
+$(STATIC_TARGET): $(OBJS)
 	$(QUIET_AR)$(AR) rcs $@ $(OBJS)
 
-$(BUILD_DIR)/$(SHARED_TARGET): $(OBJS)
+$(SHARED_TARGET): $(OBJS)
 	$(QUIET_LINK)$(CC) -shared $< -o $@
 
 $(BUILD_DIR)/%.c.o: %.c
@@ -62,10 +63,10 @@ $(BUILD_DIR)/%.c.o: %.c
 -include $(DEPS)
 
 .PHONY: shared
-shared: $(BUILD_DIR)/$(SHARED_TARGET)
+shared: $(SHARED_TARGET)
 
 .PHONY: static
-static: $(BUILD_DIR)/$(STATIC_TARGET)
+static: $(STATIC_TARGET)
 
 .PHONY: all
 all: shared static
@@ -87,7 +88,7 @@ TEST_SRC := $(shell find $(TEST_DIR) -name 'test_*.c')
 TEST_EXE = $(addprefix bin/, $(notdir $(basename $(TEST_SRC))))
 
 bin/test_%: test/test_%.c
-	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) $(BUILD_DIR)/$(STATIC_TARGET) $(UNITYTEST_DEFS)
+	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) $(STATIC_TARGET) $(UNITYTEST_DEFS)
 
 .PHONY: test
 test: $(TEST_EXE)
