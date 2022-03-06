@@ -35,9 +35,9 @@ endif
 # command line arguments to make. (V=0 or V=2 works,
 # just make sure it's defined.)
 ifndef V
-QUIET_CC   = @echo '$(DATETIME) CC    $(<F)';
-QUIET_AR   = @echo '$(DATETIME) AR    $(@F)';
-QUIET_LINK = @echo '$(DATETIME) LINK  $(@F)';
+QUIET_CC   = @echo '$(DATETIME) CC    $<';
+QUIET_AR   = @echo '$(DATETIME) AR    $@';
+QUIET_LINK = @echo '$(DATETIME) LINK  $@';
 endif
 
 
@@ -88,7 +88,7 @@ TEST_SRC := $(shell find $(TEST_DIR) -name 'test_*.c')
 TEST_EXE = $(addprefix bin/, $(notdir $(basename $(TEST_SRC))))
 
 bin/test_%: test/test_%.c
-	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) $(STATIC_TARGET) $(UNITYTEST_DEFS)
+	$(QUIET_CC)$(CC) -o $@ $(UNITYTEST_SRC) $< $(INC_FLAGS) $(STATIC_TARGET) $(UNITYTEST_DEFS) -g3
 
 .PHONY: test
 test: $(TEST_EXE)
