@@ -216,6 +216,25 @@ int textproc_chartbl_translate_char(
   const chartbl_lookup_row* clr
 );
 
+/**** Ciphers ****/
+
+/*
+ * Return a string encoded using the NATO phonetic alphabet.
+ *
+ * Example: ab -> Alfa Bravo.
+ */
+int textproc_nato_translate(char* str, char* out, size_t outsiz);
+
+/*
+ * Return a string encoded using the NATO phonetic alphabet. This functio
+ * has an additional bufsiz parameter, for explicitly specifying the size
+ * of str.
+ */
+int  textproc_nato_translate_n(char* str, char* out,
+                                  size_t outsiz, size_t bufsiz);
+
+/*****************************************************************************/
+
 #ifdef TEXTPROC_INCLUDE_STRNCPY_NT
 /*
  * Wrapper function for strcpy(), automatically terminates new strings
