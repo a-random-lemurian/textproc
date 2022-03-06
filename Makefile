@@ -21,7 +21,7 @@ DEBUGFLAGS=
 WARNFLAGS=-Wall -Wpedantic
 
 ifdef DEBUG
-DEBUGFLAGS+=-ggdb
+DEBUGFLAGS+=-g3
 WARNFLAGS=
 endif
 
