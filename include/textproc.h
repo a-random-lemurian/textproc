@@ -127,6 +127,43 @@ int textproc_ends_with(char* str, char c);
  */
 int textproc_check_specific_pos(char* str, char c, size_t idx);
 
+/*
+ * Return the number of English vowels in str.
+ */
+size_t textproc_en_vowel_count(char *str);
+
+/*
+ * Return the number of English consonants in str.
+ */
+size_t textproc_en_consonant_count(char *str);
+
+/*
+ * Count the number of times a letter in trgt_chars is present in str.
+ *
+ * str: aeioum
+ * trgt_chars: m
+ * returns: 1
+ * 
+ * The trgt_chars variable was "m", and there was only one occurence of "m"
+ * in "aeioum", therefore the return value is 1.
+ * 
+ * str: aeioum
+ * trgt_chars: am
+ * returns 2
+ * 
+ * There is one occurence of "a" and "m", the sum of these occurences is 2,
+ * therefore this function returns 2.
+ */
+size_t textproc_letterset_count(char *str, char *trgt_chars);
+
+/*
+ * Same as textproc_letterset_count, but with an additional str_l variable to
+ * explicitly specify the size of str.
+ * 
+ * textproc_letterset_count calls this function, with the return value of
+ * strlen with str as the argument to strlen passed to the str_l variable.
+ */
+size_t textproc_letterset_count_n(char *str, char *trgt_chars, size_t str_l);
 
 #ifdef TEXTPROC_INCLUDE_STRNCPY_NT
 /*
