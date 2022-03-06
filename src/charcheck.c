@@ -1,4 +1,5 @@
 #include <textproc.h>
+#include <string.h>
 
 int textproc_starts_with(char* str, char c)
 {
