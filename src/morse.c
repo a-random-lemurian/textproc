@@ -1,4 +1,5 @@
 #include <textproc.h>
+#include <string.h>
 
 const static chartbl_lookup_row morse_code[] = {
   {'0', "----- "},
