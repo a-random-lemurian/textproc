@@ -97,6 +97,37 @@ size_t textproc_levenshtein_n(char *s1, size_t s1l, char *s2, size_t s2l);
  */
 size_t textproc_levenshtein(char *s1, char *s2);
 
+/*
+ * Return 1 if position 0 (the first character) of str is equal to c,
+ * otherwise return 0.
+ */
+int textproc_starts_with(char* str, char c);
+
+/*
+ * Return 1 if the last character (excluding the terminating null byte '\0'),
+ * is equal to c, otherwise return 0;
+ */
+int textproc_ends_with(char* str, char c);
+
+/*
+ * Check if a character at the index idx in str is equal to c. It is generally
+ * cleaner and shorter to use something like:
+ * 
+ * if (str[i] == c) {
+ *   code();
+ * }
+ * 
+ * instead of
+ * 
+ * if (textproc_check_specific_pos(str, c, i)) {
+ *   code();
+ * }
+ * 
+ * as this method is primarily called by other textproc functions.
+ */
+int textproc_check_specific_pos(char* str, char c, size_t idx);
+
+
 #ifdef TEXTPROC_INCLUDE_STRNCPY_NT
 /*
  * Wrapper function for strcpy(), automatically terminates new strings
