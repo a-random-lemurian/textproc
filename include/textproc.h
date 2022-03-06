@@ -246,6 +246,18 @@ int textproc_nato_translate(char* str, char* out, size_t outsiz);
 int  textproc_nato_translate_n(char* str, char* out,
                                   size_t outsiz, size_t bufsiz);
 
+/**
+ * Write a Morse code version of str to out.
+ */
+int textproc_morse_encode(char* str, char* out, size_t outsiz);
+
+/**
+ * Same as textproc_morse_encode, with an additional bufsiz
+ * parameter for the size of str.
+ */
+int textproc_morse_encode_n(char* str, char* out, size_t outsiz,
+                            size_t bufsiz);
+
 /*****************************************************************************/
 
 #ifdef TEXTPROC_INCLUDE_STRNCPY_NT
