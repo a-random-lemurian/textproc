@@ -178,6 +178,11 @@ size_t textproc_letterset_count_n(char *str, char *trgt_chars, size_t str_l);
 size_t textproc_common_prefix_2strings(char* str1, char* str2, char* out,
                                        size_t outsiz);
 
+/*
+ * Check if trgt_char is present in str.
+ */
+int textproc_char_in_string(char* str, char trgt_char, size_t str_siz);
+
 /*****************************************************************************/
 /** CHARACTER TABLE TRANSLATION FUNCTIONS ************************************/
 /*
