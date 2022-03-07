@@ -277,29 +277,6 @@ size_t textproc_nato_translate(char* str, char* out, size_t outsiz);
 size_t textproc_nato_translate_n(char* str, char* out,
                                   size_t outsiz, size_t bufsiz);
 
-/**
- * Write a Morse code version of str to out.
- */
-size_t textproc_morse_encode(char* str, char* out, size_t outsiz);
-
-/**
- * Same as textproc_morse_encode, with an additional bufsiz
- * parameter for the size of str.
- */
-size_t textproc_morse_encode_n(char* str, char* out, size_t outsiz,
-                            size_t bufsiz);
-
-/**
- * Decode a Morse code string and write it to out.
- */
-size_t textproc_morse_decode(char* str, char* out, size_t outsiz, char* delim);
-
-/**
- * Decode a Morse code string and write it to out. This function has an
- * additional bufsiz parameter for explicitly specifying the size of str.
- */
-size_t textproc_morse_decode_n(char* str, char* out, size_t outsiz,
-                               size_t bufsiz, char* delim);
 /*****************************************************************************/
 
 #ifdef TEXTPROC_INCLUDE_STRNCPY_NT
