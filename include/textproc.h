@@ -190,7 +190,7 @@ typedef struct chartbl_lookup_row_t {
  * out_siz is 0, this function returns the size of the buffer required to
  * accomodate the translated version.
  */
-int textproc_chartbl_translate(
+size_t textproc_chartbl_translate(
   char* str,
   char* out,
   size_t out_siz,
