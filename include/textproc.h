@@ -169,6 +169,14 @@ size_t textproc_letterset_count(char *str, char *trgt_chars);
  */
 size_t textproc_letterset_count_n(char *str, char *trgt_chars, size_t str_l);
 
+/*
+ * Write the common prefix of str1 and str2 to out.
+ *
+ * Given a str1 of "arch", and a str2 of "archive", this function will
+ * write "arch" to out.
+ */
+size_t textproc_common_prefix_2strings(char* str1, char* str2, char* out,
+                                       size_t outsiz);
 
 /*****************************************************************************/
 /** CHARACTER TABLE TRANSLATION FUNCTIONS ************************************/
