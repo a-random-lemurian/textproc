@@ -66,3 +66,26 @@ size_t textproc_morse_encode_n(char* str, char* out, size_t outsiz, size_t bufsi
 
   return rc;
 }
+
+size_t textproc_morse_decode(char* str, char* out, size_t outsiz, char* delim)
+{
+  return textproc_morse_decode_n(str, out, outsiz, strlen(str), delim);
+}
+
+size_t textproc_morse_decode_n(char* str, char* out, size_t outsiz,
+                               size_t bufsiz, char* delim)
+{
+  size_t i;
+  size_t rc;
+  for (i = 0; i < bufsiz; i++) {
+    if (bufsiz == 0) {
+      rc += textproc_chartbl_reverse_translate_string(
+        str, out, delim, outsiz, 0, morse_code);
+    }
+    else {
+      textproc_chartbl_reverse_translate_string(
+        str, out, delim, outsiz, bufsiz, morse_code
+      );
+    }
+  }
+}

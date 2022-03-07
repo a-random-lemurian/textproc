@@ -289,6 +289,17 @@ size_t textproc_morse_encode(char* str, char* out, size_t outsiz);
 size_t textproc_morse_encode_n(char* str, char* out, size_t outsiz,
                             size_t bufsiz);
 
+/**
+ * Decode a Morse code string and write it to out.
+ */
+size_t textproc_morse_decode(char* str, char* out, size_t outsiz, char* delim);
+
+/**
+ * Decode a Morse code string and write it to out. This function has an
+ * additional bufsiz parameter for explicitly specifying the size of str.
+ */
+size_t textproc_morse_decode_n(char* str, char* out, size_t outsiz,
+                               size_t bufsiz, char* delim);
 /*****************************************************************************/
 
 #ifdef TEXTPROC_INCLUDE_STRNCPY_NT
