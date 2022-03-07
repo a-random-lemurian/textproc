@@ -147,7 +147,7 @@ size_t textproc_chartbl_reverse_translate_string(char *str, char *out,
 
 
   char *token;
-  token = strtok(str, delim);
+  token = strtok(_str, _delim);
 
   size_t rc = 0;
   size_t i = 0;
