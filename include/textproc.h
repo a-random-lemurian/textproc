@@ -1,6 +1,10 @@
 #ifndef TEXTPROC_H
 #define TEXTPROC_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stddef.h>
 
 /*
@@ -285,6 +289,10 @@ size_t textproc_nato_translate_n(char* str, char* out,
  * with a NULL character.
  */
 char* tp_strncpyn(char* dest, const char* src, size_t n);
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* TEXTPROC_H */
