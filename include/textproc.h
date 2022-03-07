@@ -165,6 +165,120 @@ size_t textproc_letterset_count(char *str, char *trgt_chars);
  */
 size_t textproc_letterset_count_n(char *str, char *trgt_chars, size_t str_l);
 
+
+/*****************************************************************************/
+/** CHARACTER TABLE TRANSLATION FUNCTIONS ************************************/
+/*
+ * The purpose of these functions is to establish a lookup table to convert
+ * characters (i.e the string AB becomes Alfa Bravo when sent through a NATO
+ * character table translation function.)
+ * 
+ * Please use chartbl instead of chartable to prevent misleading-sounding
+ * names (chartable may be interpreted as the English word chartable, as in
+ * something that can be charted). tbl is clearly an abbreviation for table
+ * and will eliminate ambiguity.
+ */
+
+typedef struct chartbl_lookup_row_t {
+  char key;    /* Key (e.g A)      */
+  char* value; /* Value (e.g Alfa) */
+} chartbl_lookup_row;
+
+/**
+ * Translate all characters that can be translated in str based on a lookup
+ * table supplied via the `clr` argument, and write the result to out. If
+ * out_siz is 0, this function returns the size of the buffer required to
+ * accomodate the translated version.
+ */
+size_t textproc_chartbl_translate(
+  char* str,
+  char* out,
+  size_t out_siz,
+  const chartbl_lookup_row* clr
+);
+
+/**
+ * Same as textproc_chartbl_translate_n, but with an additional bufsiz
+ * parameter, specifying the size of str.
+ */
+size_t textproc_chartbl_translate_n(
+  char* str,
+  char* out,
+  size_t bufsiz,
+  size_t out_siz,
+  const chartbl_lookup_row* clr
+);
+
+/**
+ * Translate a single character, and write the translated version to out. If
+ * out_siz is 0, this function returns the size of the buffer required to
+ * accomodate the translated version
+ * 
+ * Examples:
+ * Assuming a table of a -> Alfa, b -> Bravo, and c -> Charlie, and parameters
+ * marked ? are insignificant:
+ *
+ * 'a', ?, (valid), 0 -> 5
+ * 'a', ?, (valid), 5 -> 0 ('Alfa' is written to the `(valid)` char*).
+ */
+int textproc_chartbl_translate_char(
+  char c,
+  size_t clr_siz,
+  char* out,
+  size_t out_siz,
+  const chartbl_lookup_row* clr
+);
+
+/**
+ * Reverse-translate a substring of a string (a token.) out_chr is meant to be
+ * a pointer to a char, not a C string.
+ * 
+ * Given a table of (a -> Alfa, b -> Bravo), passing a token whose contents
+ * consist solely of "Bravo", sets the char pointed to by out_chr to b.
+ *
+ * @param c The c parameter should be an individual token.
+ */
+size_t textproc_chartbl_reverse_translate_tok(
+  char *c,
+  size_t clr_siz,
+  const chartbl_lookup_row *clr,
+  char *out_chr,
+  int get_siz
+);
+
+/**
+ * Reverse-translate a string consisting of multiple tokens. The str, out,
+ * and delim variables must be declared as char arrays, not char* (i.e char
+ * string[], not char* string).
+ */
+size_t textproc_chartbl_reverse_translate_string(
+  char *str,
+  char *out,
+  char *delim,
+  size_t out_siz,
+  size_t bufsiz,
+  const chartbl_lookup_row *clr
+);
+
+/**** Ciphers ****/
+
+/**
+ * Write a version of str encoded using the NATO phonetic alphabet to out.
+ *
+ * Example: ab -> Alfa Bravo.
+ */
+size_t textproc_nato_translate(char* str, char* out, size_t outsiz);
+
+/**
+ * Write a version of str encoded using the NATO phonetic alphabet to out.
+ * This function has an additional bufsiz parameter, for explicitly
+ * specifying the size of str.
+ */
+size_t textproc_nato_translate_n(char* str, char* out,
+                                  size_t outsiz, size_t bufsiz);
+
+/*****************************************************************************/
+
 #ifdef TEXTPROC_INCLUDE_STRNCPY_NT
 /*
  * Wrapper function for strcpy(), automatically terminates new strings
