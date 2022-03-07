@@ -100,4 +100,4 @@ test: $(TEST_EXE)
 
 .PHONY: clean
 clean:
-	rm -rfv $(OBJS) $(DEPS) $(BUILD_DIR)/lib$(LIBNAME).*
+	rm -rfv $(OBJS) $(DEPS) $(BUILD_DIR)/lib$(LIBNAME).* $(TEST_EXE)
