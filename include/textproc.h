@@ -229,6 +229,37 @@ int textproc_chartbl_translate_char(
   const chartbl_lookup_row* clr
 );
 
+/**
+ * Reverse-translate a substring of a string (a token.) out_chr is meant to be
+ * a pointer to a char, not a C string.
+ * 
+ * Given a table of (a -> Alfa, b -> Bravo), passing a token whose contents
+ * consist solely of "Bravo", sets the char pointed to by out_chr to b.
+ *
+ * @param c The c parameter should be an individual token.
+ */
+size_t textproc_chartbl_reverse_translate_tok(
+  char *c,
+  size_t clr_siz,
+  const chartbl_lookup_row *clr,
+  char *out_chr,
+  int get_siz
+);
+
+/**
+ * Reverse-translate a string consisting of multiple tokens. The str, out,
+ * and delim variables must be declared as char arrays, not char* (i.e char
+ * string[], not char* string).
+ */
+size_t textproc_chartbl_reverse_translate_string(
+  char *str,
+  char *out,
+  char *delim,
+  size_t out_siz,
+  size_t bufsiz,
+  const chartbl_lookup_row *clr
+);
+
 /**** Ciphers ****/
 
 /**

@@ -100,3 +100,75 @@ int textproc_chartbl_translate_char(char c, size_t clr_siz,
 
   return 0;
 }
+
+/*
+ * out_chr is supposed to be a
+ * pointer to a char, not a string
+ */
+
+size_t textproc_chartbl_reverse_translate_tok(char *c, size_t clr_siz,
+                                              const chartbl_lookup_row *clr,
+                                              char *out_chr, int get_siz)
+{
+  size_t i;
+
+  if (get_siz) {
+    return 1;
+  }
+
+  for (i = 0; i < clr_siz; i++) {
+    if (strcmp(c, clr[i].value) != 0) {
+      *out_chr = clr[i].key;
+    }
+  }
+
+  return 0;
+}
+
+size_t textproc_chartbl_reverse_translate_string(char *str, char *out,
+                                                 char *delim, size_t out_siz,
+                                                 size_t bufsiz,
+                                                 const chartbl_lookup_row *clr)
+{
+  /*
+   * strtok will try to modify str, which
+   * causes a segfault if the string to
+   * tokenize is a char*, not a char array[].
+   *
+   * As a defensive measure, we move the str
+   * and delim parameters into a char array,
+   * just in case.
+   */
+  char _str[strlen(str)];
+  strcpy(_str, str);
+
+  char _delim[strlen(delim)];
+  strcpy(_delim, delim);
+
+
+  char *token;
+  token = strtok(str, delim);
+
+  size_t rc = 0;
+  size_t i = 0;
+  size_t tp_rc;
+  while (token != NULL) {
+    tp_rc = textproc_chartbl_reverse_translate_tok(
+      token, sizeof(chartbl_lookup_row) / sizeof(clr),
+      clr, &out[i], (out_siz == 0));
+
+    /*
+     * If out_siz is 0, we return the size
+     * of the buffer needed to hold the
+     * reverse-translated array.
+     */
+    if (out_siz == 0) {
+      rc += tp_rc;
+    }
+
+    token = strtok(NULL, delim);
+    i++;
+  }
+
+  return rc;
+}
