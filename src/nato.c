@@ -32,12 +32,12 @@ static chartbl_lookup_row nato_alphabet[26] = {
   {'Z', "Zulu "}
 };
 
-int textproc_nato_translate(char* str, char* out, size_t outsiz)
+size_t textproc_nato_translate(char* str, char* out, size_t outsiz)
 {
   return textproc_nato_translate_n(str, out, outsiz, strlen(str));
 }
 
-int textproc_nato_translate_n(char* str, char* out, size_t outsiz, size_t bufsiz)
+size_t textproc_nato_translate_n(char* str, char* out, size_t outsiz, size_t bufsiz)
 {
   char upper_str[bufsiz];
   int rc;
