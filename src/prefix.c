@@ -13,7 +13,7 @@ size_t textproc_common_prefix_2strings(char* str1, char* str2, char* out,
   /*out = NULL;*/
 
   size_t i = 0;
-  size_t rc;
+  size_t rc = 0;
 
   while (str1[i] == str2[i]) {
     /*
